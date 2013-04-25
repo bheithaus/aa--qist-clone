@@ -1,14 +1,23 @@
 module SessionsHelper
 
   def sign_in(user)
-    session[:user_name] = user.user_name
+    cookies[:user_name] = user.user_name
   end
 
   def current_user
-    User.find_by_user_name(session[:user_name])
+    @current_user ||= User.find_by_user_name(cookies[:user_name])
   end
 
   def sign_out
-    session[:user_name] = nil
+    cookies.delete(:user_name)
+  end
+
+private
+
+  def signed_in?
+    p current_user
+    if !current_user
+      redirect_to root_path
+    end
   end
 end

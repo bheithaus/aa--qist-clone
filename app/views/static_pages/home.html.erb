@@ -1,9 +1,22 @@
-<div class="container"></div>
+<h1>Qists Core</h1>
+<div id='side-bar' class="pull-left"></div>
+<div class="content pull-right"></div>
 
 <script>
 	$(function(){
-		//important things
 
-		console.log("we rock!");
+		var qistsData = <%= Qist.all.to_json.html_safe %>;
+		var usersData = <%= User.all.to_json.html_safe %>;
+
+		//important things
+		QS.init(
+			//container
+			$(".content"),
+			qistsData,
+			usersData
+			//? other data?
+		);
+
+
 	});
 </script>

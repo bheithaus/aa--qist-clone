@@ -1,0 +1,24 @@
+<h1>Welcome <%= user.escape("user_name") %></h1>
+
+<h4>Your Qists</h4>
+<table class= 'table'>
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>title</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% user.get("qists").each(function(qist) { %>
+			<tr>
+				<td><%= qist.escape("id")  %></td>
+				<td>
+					<a href="#/qists/<%= qist.escape("id") %>">
+						<%= qist.escape("title")  %>
+					</a>
+				</td>
+			</tr>
+		<% }); %>
+	</tbody>
+
+</table>

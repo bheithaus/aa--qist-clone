@@ -1,25 +1,22 @@
-var QS = {
+window.QS = {
 	Collections: {},
 	Models: {},
 	Views: {},
 	Routers: {},
 	Store: {},
 
-	init: function($container, userData, qistData) {
-		this.$container = $container;
-		this.userData = userData;
-		this.qistData = qistData;
+	init: function($container, qistsData, usersData) {
+		QS.Store.Users = new QS.Collections.Users(usersData);
+		QS.Store.Qists = new QS.Collections.Qists(qistsData);
 
-		// store both collections in store
+		var router = new QS.Routers.QistRouter($container);
 
-		this.makeSidebar();
-
-		// make router, pass it $continer
-		// start history
+		Backbone.history.start();
 	},
 
-	makeSidebar: function() {
-		// maybe a sidebar??? sounds nice
-	}
+	makeSidebar: function($sidebar) {
+		var sidebar = new QS.Views.Sidebar();
 
-}
+		$sidebar.html(sidebar.render().$el);
+	}
+};

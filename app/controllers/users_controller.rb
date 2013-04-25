@@ -3,6 +3,11 @@ class UsersController < ApplicationController
 
   respond_to :json
 
+  def index
+    @users = User.all
+
+    render json: @users
+  end
   def create
     @user = User.new(params[:user])
 
@@ -22,6 +27,6 @@ class UsersController < ApplicationController
   def destroy
     user = User.find(params[:id]).destroy
 
-    render json: status: 200
+    render json: {status: 200}
   end
 end
