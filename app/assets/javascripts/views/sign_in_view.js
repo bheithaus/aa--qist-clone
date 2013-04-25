@@ -26,8 +26,6 @@ QS.Views.SignInView = Backbone.View.extend({
 
 				QS.Store.currentUserId = sessionData.id;
 
-				console.log("user_id after sign in");
-				console.log(QS.Store.currentUserId);
 				$("a#sign-in").prop("id", "sign-out").text("Sign Out");
 
 				Backbone.history.navigate("#", {trigger: true});

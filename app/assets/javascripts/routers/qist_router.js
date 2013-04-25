@@ -6,11 +6,16 @@ QS.Routers.QistRouter = Backbone.Router.extend({
 	routes: {
 		'': 'userHome',
 		"signin": "signIn",
+		'qists/new': 'newQistView',
 		"qists/:id": "qistView"
+
 	},
 
 	userHome: function() {
 		var that = this;
+
+		// how do we protect all routes?
+		// before filter with BB?
 
 		var user_id = QS.Store.currentUserId;
 
@@ -18,9 +23,7 @@ QS.Routers.QistRouter = Backbone.Router.extend({
 			$.get(
 				"/session",
 				function (data) {
-					console.log(data);
 					user_id = QS.Store.currentUserId = data.id;
-					console.log(user_id);
 					if ( typeof(user_id) == "number" ) {
 						that.signedInHome(user_id);
 					} else {
@@ -52,11 +55,18 @@ QS.Routers.QistRouter = Backbone.Router.extend({
 
 	qistView: function(id) {
 		var that = this;
-		var qistDetailView = new QS.Views.QistDetailView({
-			model: QS.Store.Qists.get(id)
-		});
+		var qist = QS.Store.Qists.get(id);
+		var user = QS.Store.Users.get(QS.Store.currentUserId);
 
-		that.$container.html(qistDetailView.render().$el);
+		user.get("favorites").fetch({
+			success: function () {
+				var qistDetailView = new QS.Views.QistDetailView({
+					model: qist
+				});
+
+				that.$container.html(qistDetailView.render().$el);
+			}
+		});
 	},
 
 	signIn: function() {
@@ -65,5 +75,18 @@ QS.Routers.QistRouter = Backbone.Router.extend({
 
 		this.$container.html(signInView.render().$el);
 		//append to container
+	},
+
+	newQistView: function() {
+
+		var that = this;
+
+		var blankQist = new QS.Models.Qist();
+
+		var newQistView = new QS.Views.NewQistView({
+			model: blankQist
+		});
+
+		this.$container.html(newQistView.render().$el);
 	}
 });

@@ -8,4 +8,15 @@ class QistsController < ApplicationController
 
     render json: @qists
   end
+
+  def create
+    @qist = Qist.new(params[:qist])
+    @qist.user_id = current_user.id
+
+    if @qist.save
+      render json: @qist
+    else
+      render json: @qist.errors.full_messages
+    end
+  end
 end

@@ -1,6 +1,8 @@
 QS.Models.Qist = Backbone.RelationalModel.extend({
 	urlRoot: '/qists',
-
+  schema: {
+        title: 'Text'
+    },
 	relations: [{
 		type: "Backbone.HasMany",
 		key: "favorites",
@@ -14,5 +16,20 @@ QS.Models.Qist = Backbone.RelationalModel.extend({
 			keySource: "qist_id",
 			includeInJSON: "id"
 		}
-	}]
+	},
+	{
+			type: "Backbone.HasMany",
+			key: "qist_files",
+			relatedModel: "QS.Models.QistFile",
+			collectionType: "QS.Collections.QistFiles",
+			// collectionOptions: function(qist) {
+			// 	return { qist: qist };
+			// },
+			reverseRelation: {
+				key: "qist",
+				keySource: "qist_id",
+				includeInJSON: "id"
+			}
+	}
+	]
 });

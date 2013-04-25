@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424221424) do
+ActiveRecord::Schema.define(:version => 20130425182147) do
 
   create_table "favorites", :force => true do |t|
     t.integer  "qist_id"
@@ -21,6 +21,13 @@ ActiveRecord::Schema.define(:version => 20130424221424) do
   end
 
   add_index "favorites", ["qist_id", "user_id"], :name => "index_favorites_on_qist_id_and_user_id", :unique => true
+
+  create_table "qist_files", :force => true do |t|
+    t.integer  "qist_id"
+    t.string   "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "qists", :force => true do |t|
     t.string   "title"

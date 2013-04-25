@@ -1,8 +1,14 @@
 class FavoritesController < ApplicationController
   respond_to :json
 
+  def show
+    @favorite = Favorite.where("qist_id = ? AND user_id = ?",
+                              params[:qist_id], current_user.id)
+    render json: @favorite
+  end
+
   def index
-    render json: current_user.favorite_qists
+    render json: current_user.favorites
   end
 
   def create
@@ -15,9 +21,8 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    @favorite = Favorite.where("qist_id = ? AND user_id = ?",
-                              params[:qist_id], current_user.id).destroy
+    @favorite = Favorite.find(params[:id]).destroy
 
-    render json: {}
+    render json: @favorite
   end
 end

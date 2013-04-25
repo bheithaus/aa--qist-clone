@@ -23,7 +23,6 @@ QS.Views.Sidebar = Backbone.View.extend({
 			"/session",
 			{ _method: "DELETE" },
 			function (someStuff) {
-				console.log(someStuff);
 
 				$("a#sign-out").prop("id", "sign-in").text("Sign In");
 
