@@ -28,7 +28,7 @@ QS.Views.SignInView = Backbone.View.extend({
 
 				$("a#sign-in").prop("id", "sign-out").text("Sign Out");
 
-				Backbone.history.navigate("#", {trigger: true});
+				Backbone.history.navigate("home", {trigger: true});
 			}
 		);
 	}

@@ -18,6 +18,7 @@
 //= require backbone-forms
 //= require backbone-relational
 //= require bootstrap
+//= require backbone.routefilter
 //
 //= require qists_core
 //

@@ -1,6 +1,22 @@
-<% if ( typeof(QS.Store.currentUserId) == "number" ) { %>
-	<a class='btn' id="sign-out" href="#">Sign Out</a>
-<% } else { %>
-	<a class='btn' id="sign-in" href='#'>Sign In</a>
-<% } %>
-<a class='btn' id='new-button' href='#/qists/new'>New Qist</a>
+<div class="navbar">
+  <div class="navbar-inner">
+	   <a class="brand" href="#index">Qists Core</a>
+	    <ul class="nav">
+			<% if ( typeof(QS.Store.currentUserId) == "number" ) { %>
+				<li class="#">
+					<a id="sign-out" href="#">Sign Out</a>
+				</li>
+			<% } else { %>
+				<li class="#">
+					<a class='btn' id="sign-in" href='#'>Sign In</a>
+				</li>
+			<% } %>
+			<li class="#">
+				<a id='new-button' href='#/qists/new'>New Qist</a>
+			</li>
+			<li class="active">
+				<a id='home-button' href='#home'>Home</a>
+			</li>
+		</ul>
+	</div>
+</div>

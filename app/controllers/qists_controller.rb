@@ -11,6 +11,7 @@ class QistsController < ApplicationController
 
   def create
     @qist = Qist.new(params[:qist])
+    @qist.qist_files.build(params[:qist_files_attributes])
     @qist.user_id = current_user.id
 
     if @qist.save

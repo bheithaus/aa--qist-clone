@@ -4,36 +4,55 @@ QS.Routers.QistRouter = Backbone.Router.extend({
 	},
 
 	routes: {
-		'': 'userHome',
+		'home': 'userHome',
+		'': 'index',
 		"signin": "signIn",
 		'qists/new': 'newQistView',
 		"qists/:id": "qistView"
-
 	},
 
-	userHome: function() {
-		var that = this;
+	before: function( route ) {
+		console.log("trying route \/");
+		console.log(route);
 
-		// how do we protect all routes?
-		// before filter with BB?
+		var that = this;
 
 		var user_id = QS.Store.currentUserId;
 
 		if ( typeof(user_id) != "number" ) {
-			$.get(
-				"/session",
-				function (data) {
-					user_id = QS.Store.currentUserId = data.id;
-					if ( typeof(user_id) == "number" ) {
-						that.signedInHome(user_id);
-					} else {
-						Backbone.history.navigate("signin");
-					}
+				Backbone.history.navigate("signin", {trigger: true});
+				$.get(
+					"/session",
+					function (data) {
+						user_id = QS.Store.currentUserId = data.id;
+						if ( typeof(user_id) != "number" ) {
+							Backbone.history.navigate("signin", {trigger: true});
+							console.log("not signed in, redirecting yer ass");
+						} else {
+							Backbone.history.navigate(route, {trigger: true});
+						}
 				}
 			);
-		} else {
-			that.signedInHome(user_id);
 		}
+
+	  console.log('The before filter ran and the route was foo!');
+
+	  },
+
+	userHome: function() {
+		var that = this;
+
+		var user_id = QS.Store.currentUserId;
+
+		that.signedInHome(user_id);
+	},
+
+	index: function() {
+		var that = this;
+
+		var indexView = new QS.Views.IndexView();
+
+		that.$container.html(indexView.render().$el);
 	},
 
 	signedInHome: function(user_id) {

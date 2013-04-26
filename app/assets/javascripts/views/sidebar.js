@@ -2,6 +2,7 @@ QS.Views.Sidebar = Backbone.View.extend({
 	events: {
 		"click a#sign-in" : "signIn",
 		"click a#sign-out" : "signOut",
+		"click a": "select"
 	},
 
   render: function() {
@@ -28,8 +29,13 @@ QS.Views.Sidebar = Backbone.View.extend({
 
 				QS.Store.currentUserId = null;
 
-				Backbone.history.navigate("", {trigger: true});
+				Backbone.history.navigate("index", true);
 			}
 		);
+	},
+
+	select: function(event) {
+		$("ul.nav").children().filter("li").removeClass("active");
+		$(event.target).parent().addClass("active");
 	}
 });

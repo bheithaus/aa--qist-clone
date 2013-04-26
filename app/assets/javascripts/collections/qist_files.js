@@ -1,7 +1,13 @@
 QS.Collections.QistFiles = Backbone.Collection.extend ({
-	model: QS.Models.Qist-File,
+	initialize: function(model, options) {
+		this.qist = options.qist;
+	},
 
-	url: "/qist_files"
+	model: QS.Models.QistFile,
+
+	url: function() {
+		return "/qists/" + this.qist.id + "/qist_files";
+	}
 });
 
 //probly not gonna work

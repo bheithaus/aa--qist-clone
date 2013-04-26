@@ -11,6 +11,7 @@ Gist::Application.routes.draw do
 
   resources :qists do
     resource :favorite, only: [:show, :create]
+    resources :qist_files, only: :index
   end
 
   resources :favorites, only: [:index, :destroy]

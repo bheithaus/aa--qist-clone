@@ -23,6 +23,20 @@ QS.Views.QistDetailView = Backbone.View.extend({
 
 		that.$el.html(renderedQist).append(favoriteButtonView.render().$el);
 
+		that.model.get("qist_files_attributes").fetch({
+			success: function(resp) {
+				console.log(resp);
+				console.log(that.model.get("qist_files_attributes"));
+				that.model.get("qist_files_attributes").each(function(qist_file) {
+					var well = $("<div class='well'></div>");
+					that.$el.append($(well.text(qist_file.escape("body"))));
+				});
+			}
+		});
+
+
+
+
 		return that;
 	}
 });
